@@ -10,17 +10,10 @@ public class Main {
         Clinic clinic = new Clinic();
         String exit = "no";
 
-        System.out.println("\nWelcome to clinic application!                \n");
-        System.out.println("You can use this app for modeling work of real  \n" +
-                            "veterinary clinic. There are next available    \n" +
-                            "operations: \n" +
-                            " -- to add client to clinic                -- addClient            \n" +
-                            " -- to delete client from clinic           -- deleteClient         \n" +
-                            " -- to find clint by his/her name          -- findClient           \n" +
-                            " -- to find clint by name of his/her pet   -- findPet              \n" +
-                            " -- to change name of client               -- changeClientName     \n" +
-                            " -- to change name of pet of client        -- changePetName        \n" +
-                            " -- to show list of all clients            -- showList             \n");
+        System.out.println( "\nWelcome to clinic application!   \n" +
+                            "You can use this app for modeling  \n" +
+                            "work of real veterinary clinic.    \n");
+        helpMenu();
 
         while(!exit.equals("yes")){
 
@@ -67,11 +60,7 @@ public class Main {
                         clinic.showSearchRes();
                         break;
                     case "showList":
-                        if(clinic.searchList.size() > 0){
-                            clinic.showList();
-                        } else{
-                            System.out.println("Clinic's client list is empty");
-                        }
+                        clinic.showList();
                         break;
                     case "changeClientName":
                         System.out.println("Enter old name");
@@ -87,13 +76,30 @@ public class Main {
                         String newPName = reader.next();
                         clinic.changePetName(petName, newPName);
                         break;
+                    case "help":
+                        helpMenu();
+                        break;
+                    case "exit":
+                        exit = "yes";
+                        break;
                     default:
                         System.out.println("There is no such command, try again? yes/no ");
                         operationExit = reader.next();
                 }
             }
-            System.out.println("\nExit yes/no ? \n");
-            exit = reader.next();
         }
+    }
+
+    private static void helpMenu (){
+        System.out.println("There are next available operations: \n" +
+                " -- to add client to clinic                -- addClient            \n" +
+                " -- to delete client from clinic           -- deleteClient         \n" +
+                " -- to find clint by his/her name          -- findClient           \n" +
+                " -- to find clint by name of his/her pet   -- findPet              \n" +
+                " -- to change name of client               -- changeClientName     \n" +
+                " -- to change name of pet of client        -- changePetName        \n" +
+                " -- to show list of all clients            -- showList             \n" +
+                " -- to get help menu                       -- help                 \n" +
+                " -- to exit the program                    -- exit                 \n");
     }
 }

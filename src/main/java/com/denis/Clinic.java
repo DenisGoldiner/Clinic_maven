@@ -41,6 +41,9 @@ public class Clinic {
                 this.searchList.add(current);
             }
         }
+        if(this.searchList.size() == 0){
+            System.out.println("There is no clients with this name");
+        }
     }
 
     /**
@@ -54,6 +57,9 @@ public class Clinic {
                 this.searchList.add(current);
             }
         }
+        if(this.searchList.size() == 0){
+            System.out.println("There is no pet with this name");
+        }
     }
 
     /**
@@ -61,11 +67,16 @@ public class Clinic {
      * @param delClient client that will be deleted
      */
     public void deleteClient(Client delClient){
-        Iterator<Client> it = clients.iterator();
-        while(it.hasNext()){
-            Client current = it.next();
-            if(current.equals(delClient)){
-                it.remove();
+        clearSearchList();
+        findClient(delClient.getClientName());
+        if(searchList.size() > 0) {
+            Iterator<Client> it = clients.iterator();
+            while (it.hasNext()) {
+                Client current = it.next();
+                if (current.equals(delClient)) {
+                    it.remove();
+                    System.out.println("Client " + current.getClientName() + " has been removed");
+                }
             }
         }
     }
@@ -78,15 +89,12 @@ public class Clinic {
     public void changeNameClient(String oldName, String newName){
         clearSearchList();
         findClient(oldName);
-        if(this.searchList.size() > 0) {
             for (Client current : this.clients) {
                 if (current.getClientName().equals(oldName)) {
                     current.setClientName(newName);
                 }
             }
-        } else{
-            System.out.println("There is no client with tis name");
-        }
+
     }
 
     /**
@@ -97,23 +105,23 @@ public class Clinic {
     public void changePetName(String oldName, String newName){
         clearSearchList();
         findPet(oldName);
-        if(this.searchList.size() > 0) {
             for (Client current : this.clients) {
                 if (current.getPet().getPetName().equals(oldName)) {
                     current.getPet().setPetName(newName);
                 }
             }
-        } else {
-            System.out.println("There is no pet with this name");
-        }
     }
 
     /**
      * shows current list of all clients in the console
      */
     public void showList(){
-        for(Client current: this.clients){
-            System.out.println("[ Client's name = " + current.getClientName() + ", Pet's name = " + current.getPet().getPetName() + " ]");
+        if(this.clients.size() > 0) {
+            for (Client current : this.clients) {
+                System.out.println("[ Client's name = " + current.getClientName() + ", Pet's name = " + current.getPet().getPetName() + " ]");
+            }
+        } else {
+            System.out.println("Clinic's client list is empty");
         }
     }
 
